@@ -65,15 +65,21 @@ class LinkedList {
 		this.tail.next = null
 	}
 
+	// 2.3 -- Remove middle node by reference to the node to remove
 	removeMiddleNode(node) {
 		let oldNext = node.next
 		let oldPrev = node.prev
 
+		// since JS has automatic garbage collection, just need to remove references
+		// in other languages you overwrite the passed-in node with a new node constructed out of references to the next node
+		// this deletes the current node by overwriting it with its next
+		// does not work on final node as final node does not have a next
 		oldNext.prev = oldPrev
 		oldPrev.next = oldNext
 		this.length -= 1
 	}
 
+	// helper function for removeDupes
 	deleteNode(val) {
 		let current = this.head
 		while (current) {
@@ -98,6 +104,7 @@ class LinkedList {
 		}
 	}
 
+	// 2.1 -- Remove dupes from unsorted linked list
 	removeDupes() {
 
 		let current = this.head
@@ -122,6 +129,7 @@ class LinkedList {
 		}
 	}
 
+	// 2.2 -- Find kth to last element
 	findKthFromLast(k) {
 
 		let index = this.length;
@@ -149,7 +157,6 @@ list.addToHead(8);
 list.addToTail(9);
 list.addToTail(10);
 list.addToHead(10);
-// list.removeDupes();
 list.addToHead(235);
 list.addToHead(87);
 list.addToHead(21);
@@ -158,4 +165,3 @@ list.addToHead(123);
 list.addToTail(67);
 
 console.log(list);
-list.findKthFromLast(4);
