@@ -145,6 +145,7 @@ class LinkedList {
 
 	}
 
+	// 2.4 -- Create partition
 	makePartition(pVal) {
 
 		// create new LinkedLists -- immutable data structure style
@@ -203,4 +204,78 @@ list.addToTail(45);
 list.addToHead(123);
 list.addToTail(67);
 
-list.makePartition(20)
+// 2.5 -- Sum two numbers represented as LinkedLists, return sum as LinkedList
+function convertListToNum(list) {
+	let num = ''
+	let current = list.head
+	while (current) {
+		num += current.value.toString();
+		current = current.next
+	}
+
+	return Number(num)
+}
+
+function convertNumToList(num) {
+	let list = new LinkedList();
+	let numArr = num.toString().split('');
+
+	while (numArr.length) {
+		let currentNum = numArr.pop();
+		list.addToHead(currentNum)
+	}
+
+	return list;
+}
+
+function sumTwoLists(listOne, listTwo) {
+	let listOneNum = convertListToNum(listOne);
+	let listTwoNum = convertListToNum(listTwo);
+	let sum = listOneNum + listTwoNum;
+
+	return convertNumToList(sum);
+}
+
+let listOne = convertNumToList(123)
+let listTwo = convertNumToList(234)
+
+sumTwoLists(listOne, listTwo) // list of three nodes, head->tail 3, 5, 7
+
+// 2.6 -- Determine if a list is a palindrome
+function isListPalindrome(list) {
+
+	let reverseList = new LinkedList()
+
+	let current = list.head;
+
+	while (current) {
+		reverseList.addToHead(current.value)
+		current = current.next
+	}
+
+	let count = 0;
+
+  let currentListNode = list.head
+  let currentReverseListNode = reverseList.head
+
+	while (count < Math.floor(list.length / 2)) {
+		if (currentListNode.value !== currentReverseListNode.value) {
+			return false;
+		}
+		currentListNode = currentListNode.next
+		currentReverseListNode = currentReverseListNode.next
+		count++;
+	}
+	
+	return true;
+	
+}
+
+let listPalindrome = new LinkedList();
+listPalindrome.addToHead(1);
+listPalindrome.addToHead(3);
+listPalindrome.addToHead(3);
+listPalindrome.addToHead(2);
+listPalindrome.addToHead(1);
+isListPalindrome(listPalindrome); // returns false
+
