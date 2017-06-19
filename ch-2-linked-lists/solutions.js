@@ -145,6 +145,45 @@ class LinkedList {
 
 	}
 
+	makePartition(pVal) {
+
+		// create new LinkedLists -- immutable data structure style
+		let tempList = new LinkedList()
+		let partitionedList = new LinkedList()
+
+		let current = this.head;
+
+		while (current) {
+
+			if (current.value === pVal) {
+				partitionedList.addToHead(current.value)
+			}
+			if (current.value < pVal) {
+				tempList.addToHead(current.value)
+			} else {
+				partitionedList.addToHead(current.value)
+			}
+
+			current = current.next;
+		}
+
+		current = tempList.head
+		
+		while (current) {
+			partitionedList.addToHead(current.value)
+			current = current.next
+		}
+
+		current = partitionedList.head
+
+		while (current) {
+			current = current.next
+		}
+
+		// return new partitioned list -- immutable data structure style
+		return partitionedList
+	}
+
 }
 
 let list = new LinkedList();
@@ -164,4 +203,4 @@ list.addToTail(45);
 list.addToHead(123);
 list.addToTail(67);
 
-console.log(list);
+list.makePartition(20)
