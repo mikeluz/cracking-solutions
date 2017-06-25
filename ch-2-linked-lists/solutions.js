@@ -279,3 +279,17 @@ listPalindrome.addToHead(2);
 listPalindrome.addToHead(1);
 isListPalindrome(listPalindrome); // returns false
 
+// 2.7 -- Determine if two lists intersect and return the node of intersection (singly Linked List only, as there is no "prev" reference)
+function intersection(listOne, listTwo) {
+
+	// if tails are different, no intersection
+	if (listOne.tail !== listTwo.tail) {
+		return null;
+	}
+
+	if (listOne.length > listTwo.length) {
+		let toCut
+	}
+
+}
+
