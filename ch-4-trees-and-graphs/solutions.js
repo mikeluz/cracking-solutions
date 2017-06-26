@@ -102,3 +102,49 @@ console.log(newBSTSmall);
 console.log(newBSTVerySmall);
 
 // 4.3 -- given a BT, design aglo that creates a linked list of all the nodes at each depth (BT of depth D will have D linked lists)
+class Node {
+	constructor(val) {
+		this.val = val;
+		this.next = null;
+	}
+}
+
+class LinkedList {
+	constructor() {
+		this.head;
+		this.tail;
+	}
+	addToHead(val) {
+		var newNode = new Node(val);
+		if (!this.head) {
+			this.head = newNode;
+			this.tail = newNode;
+		} else {
+			var oldHead = this.head;
+			this.head = newNode;
+			this.head.next = oldHead;
+		}
+	}
+}
+
+function createLinkedLists(rootNode, arrayOfLists, level) {
+	if (rootNode === null) {
+		return;
+	}
+	var list = null;
+	if (level === arrayOfLists.length) {
+		arrayOfLists.push(new LinkedList());
+		list = arrayOfLists[level];
+	} else {
+		list = arrayOfLists[level];
+	}
+	list.addToHead(rootNode);
+	createLinkedLists(rootNode.left, arrayOfLists, level + 1);
+	createLinkedLists(rootNode.right, arrayOfLists, level + 1);
+}
+var array = [];
+createLinkedLists(newBSTOdd, array, 0);
+console.log(array);
+
+
+
