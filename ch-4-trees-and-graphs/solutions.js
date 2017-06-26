@@ -54,14 +54,32 @@ class BST {
 function createBST(array) {
 	var arrCopy = [].slice.call(array);
 	var tree;
+	var rootIndex = Math.floor(arrCopy.length / 2);
 
-	for (var i = 0; i < arrCopy.length; i++) {
-		if (i === (Math.floor(arrCopy.length / 2) - 1)) {
-			continue;
-		}
-		if (i === 0) {
-			var rootEl = arrCopy[Math.floor(arrCopy.length / 2) - 1];
+	// add left
+	for (var i = rootIndex; i >= 0; i -= 2) {
+		if (i === rootIndex) {
+			var rootEl = arrCopy[i];
 			tree = new BST(rootEl);
+			// check in case array has only one element, do not add i-1
+			if (arrCopy[i-1]) {
+				tree.push(arrCopy[i-1]);
+			}
+		} else {
+			if (arrCopy[i-1]) {
+				tree.push(arrCopy[i+1]);
+			} else {
+				tree.push(arrCopy[i+1]);
+				tree.push(arrCopy[i]);
+			}
+		}
+	}
+
+	// add right
+	for (var i = rootIndex + 1; i < arrCopy.length; i += 2) {
+		if (arrCopy[i+1]) {
+			tree.push(arrCopy[i+1]);
+			tree.push(arrCopy[i])
 		} else {
 			tree.push(arrCopy[i]);
 		}
@@ -70,6 +88,17 @@ function createBST(array) {
 	return tree;
 }
 
-var sortedArray = [1,2,3,4,5,6,7,8,9,10];
-var newBST = createBST(sortedArray);
-console.log(newBST);
+var sortedArrayEven = [1,2,3,4,5,6,7,8,9,10]; // even number of elements
+var sortedArrayOdd = [1,2,3,4,5,6,7,8,9,10,11]; // even number of elements
+var small = [1, 2];
+var verySmall = [1];
+var newBSTEven = createBST(sortedArrayEven);
+var newBSTOdd = createBST(sortedArrayOdd);
+var newBSTSmall = createBST(small);
+var newBSTVerySmall = createBST(verySmall);
+console.log(newBSTEven);
+console.log(newBSTOdd);
+console.log(newBSTSmall);
+console.log(newBSTVerySmall);
+
+// 4.3 -- given a BT, design aglo that creates a linked list of all the nodes at each depth (BT of depth D will have D linked lists)
