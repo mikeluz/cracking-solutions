@@ -109,3 +109,91 @@ const sortAsc = (stack) => {
 		current = current.next;
 	}
 }
+
+// 3.6 -- implement animal shelter queue
+
+class Animal {
+	constructor(type) {
+		this.type = type || null;
+		this.next = null;
+		this.prev = null;
+	}
+}
+
+class Shelter {
+	constructor() {
+		this.head = null;
+		this.tail = null;
+		this.numberOfAnimals = 0;
+	}
+	enqueue(type) {
+		let newAnimal = new Animal(type);
+		if (this.tail) {
+			let oldTail = this.tail;
+			oldTail.next = newAnimal;
+			this.tail = newAnimal;
+			this.tail.prev = oldTail;
+		} else {
+			this.head = newAnimal;
+			this.tail = newAnimal;
+		}
+		this.numberOfAnimals++;
+	}
+	dequeueAny() {
+	  let adopted = this.head;
+	  let newHead = this.head.next;
+	  newHead.prev = null;
+	  this.next = newHead;
+	  this.numberOfAnimals--;
+		return adopted;
+	}
+	dequeueCat() {
+		let current = this.head;
+  		while (current) {
+  			if (current.type === "cat") {
+  				let adopted = current;
+  				if (current.prev) {
+  				   current.prev.next = current.next; 
+  				} else {
+  				   current.next.prev = null 
+  				}
+  				this.numberOfAnimals--;
+  				return adopted;
+  			}
+  			current = current.next;
+  		} 
+	}
+	dequeueDog() {
+		let current = this.head;
+  		while (current) {
+  			if (current.type === "dog") {
+  				let adopted = current;
+  				if (current.prev) {
+  				   current.prev.next = current.next; 
+  				} else {
+  				   current.next.prev = null 
+  				}
+  				this.numberOfAnimals--;
+  				return adopted;
+  			}
+  			current = current.next;
+  		} 
+	}
+}
+
+var shelter = new Shelter();
+shelter.enqueue("cat");
+shelter.enqueue("cat");
+shelter.enqueue("dog");
+shelter.enqueue("cat");
+shelter.enqueue("dog");
+shelter.enqueue("dog");
+shelter.enqueue("dog");
+shelter.enqueue("cat");
+console.log(shelter.dequeueAny()); // cat, 7 left
+console.log(shelter.dequeueAny()); // cat, 6 left
+console.log(shelter.numberOfAnimals); // 6
+console.log(shelter.dequeueDog()); // dog, 5 left
+console.log(shelter.numberOfAnimals); // 5
+console.log(shelter.dequeueCat()); // cat, 4 left
+console.log(shelter.numberOfAnimals); // 4
