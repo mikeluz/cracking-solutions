@@ -91,7 +91,7 @@ console.log(newBSTOdd);
 console.log(newBSTSmall);
 console.log(newBSTVerySmall);
 
-// 4.3 -- given a BT, design aglo that creates a linked list of all the nodes at each depth (BT of depth D will have D linked lists)
+// 4.3 -- given a BT, design algo that creates a linked list of all the nodes at each depth (BT of depth D will have D linked lists)
 class Node {
 	constructor(val) {
 		this.val = val;
