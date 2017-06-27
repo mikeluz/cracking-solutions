@@ -133,3 +133,33 @@ function createLinkedLists(rootNode, arrayOfLists, level) {
 var array = [];
 createLinkedLists(newBSTOdd, array, 0);
 console.log(array);
+
+// 4.4 -- write a function that checks if a given tree is balanced (no two level-successive nodes have only one leaf)
+function checkBalanced(rootNode) {
+  if (!rootNode) {
+  	// if recursion reaches undefined rootNode it is balanced
+    return true;
+  } else {
+  	// check if there is no left; if so, check if there is a right; if there is, check if that has no left or right; if so, return false
+    if (!rootNode.left) {
+      if (rootNode.right) {
+        if (!rootNode.right.left || !rootNode.right.right) {
+    			return false;
+    		} 
+      }
+  	}
+  	// same as above but for right
+  	if (!rootNode.right) {
+  	  if (rootNode.left) {
+    	  if (!rootNode.left.left || !rootNode.left.right) {
+    			return false;
+    		} 
+  	  }
+  	}
+  }
+	return checkBalanced(rootNode.left) && checkBalanced(rootNode.right);	
+}
+
+checkBalanced(newBSTOdd);
+checkBalanced(newBSTEven);
+checkBalanced(newBSTEven);
