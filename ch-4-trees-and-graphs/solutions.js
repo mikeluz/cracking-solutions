@@ -145,7 +145,7 @@ function checkBalanced(rootNode) {
       if (rootNode.right) {
         if (!rootNode.right.left || !rootNode.right.right) {
     			return false;
-    		} 
+    		}
       }
   	}
   	// same as above but for right
@@ -163,3 +163,20 @@ function checkBalanced(rootNode) {
 checkBalanced(newBSTOdd);
 checkBalanced(newBSTEven);
 checkBalanced(newBSTEven);
+
+// 4.5 -- write a function that validates a given tree as being a binary search tree
+function validateBST(tree) {
+	if (!tree.left && !tree.right) {
+		return true;
+	}
+	if (tree.left.value > tree.value || tree.right.value < tree.value) {
+		return false;
+	} else {
+		if (tree.left) {
+			return validateBST(tree.left);
+		}
+		if (tree.right) {
+			return validateBST(tree.right);
+		}
+	}
+}
