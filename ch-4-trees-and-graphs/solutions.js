@@ -164,7 +164,16 @@ checkBalanced(newBSTOdd);
 checkBalanced(newBSTEven);
 
 // 4.5 -- write a function that validates a given tree as being a binary search tree
-function validateBST(tree) {
+function validateBST(tree, rootValue, notRootFlag) {
+  // if not root, pass in a flag indicating current node is not the root, as well as the root value for min/max comparison
+	var notRoot = notRootFlag || null;
+	var rootVal = rootValue || null;
+
+	// if the first call, this parameter will be null, so assign and pass into downstream recursive calls the two args
+	if (!notRootFlag) {
+		notRoot = true;
+		rootVal = tree.value;
+	}
 	if (!tree) {
 		// if undefined, it means it made it to a terminal without finding an out of order leaf
 		return true;
@@ -173,5 +182,26 @@ function validateBST(tree) {
 		// check for out of order leaves
 		return false;
 	}
-	return validateBST(tree.left) && validateBST(tree.right);
+	if ((tree.left && (tree.left.right && tree.left.right.value > rootVal)) || 
+	   (tree.left && (tree.left.left && tree.left.left.value > rootVal)) || 
+	   (tree.right && (tree.right.left && tree.right.left.value < rootVal)) ||
+	   (tree.right && (tree.right.right && tree.right.right.value < rootVal))) {
+			// check for leaves that are in order with respect to their parent but out of order with respect to root value
+	    return false;
+	   }
+	// recurse down the tree
+	return validateBST(tree.left, rootVal, notRoot) && validateBST(tree.right, rootVal, notRoot);
+}
+
+var testBST = new BST(20);
+var leftChild = new BST(15);
+leftChild.right = new BST(25) // note 25 is placed as right child of 15, thus correct with respect to parent but incorrect re: root 
+testBST.left = leftChild;
+
+validateBST(testBST); // false
+validateBST(newBSTEven); // true
+
+// 4.6 -- Write function to find nearest successor node
+function findSuccessor(argument) {
+	// body...
 }
