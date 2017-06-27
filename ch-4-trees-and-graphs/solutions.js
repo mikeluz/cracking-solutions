@@ -162,21 +162,16 @@ function checkBalanced(rootNode) {
 
 checkBalanced(newBSTOdd);
 checkBalanced(newBSTEven);
-checkBalanced(newBSTEven);
 
 // 4.5 -- write a function that validates a given tree as being a binary search tree
 function validateBST(tree) {
-	if (!tree.left && !tree.right) {
+	if (!tree) {
+		// if undefined, it means it made it to a terminal without finding an out of order leaf
 		return true;
 	}
-	if (tree.left.value > tree.value || tree.right.value < tree.value) {
+	if ((tree.left && tree.value < tree.left.value) || (tree.right && tree.value > tree.right.value)) {
+		// check for out of order leaves
 		return false;
-	} else {
-		if (tree.left) {
-			return validateBST(tree.left);
-		}
-		if (tree.right) {
-			return validateBST(tree.right);
-		}
 	}
+	return validateBST(tree.left) && validateBST(tree.right);
 }
