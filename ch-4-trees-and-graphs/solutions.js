@@ -195,13 +195,90 @@ function validateBST(tree, rootValue, notRootFlag) {
 
 var testBST = new BST(20);
 var leftChild = new BST(15);
-leftChild.right = new BST(25) // note 25 is placed as right child of 15, thus correct with respect to parent but incorrect re: root 
+leftChild.right = new BST(25); // note 25 is placed as right child of 15, thus correct with respect to parent but incorrect re: root 
 testBST.left = leftChild;
 
 validateBST(testBST); // false
 validateBST(newBSTEven); // true
 
 // 4.6 -- Write function to find nearest successor node
-function findSuccessor(argument) {
-	// body...
+function findSuccessor(node) {
+	// if not right node, return parent
+	if (!node.right) {
+		return node.parent;
+	}
+	// base case -- if no left node, you've reached successor
+	if (!node.left) {
+		return node;
+	} else {
+		// grab right node
+		var current = node.right;
+		while (current) {
+			// walk all the way down its left side
+			current = current.left;
+		}
+		// return leftmost node
+		return current;
+	}
 }
+
+// 4.7 -- Build Order -- given a list of projects and a list of dependencies, output a build order
+function createBuildOrder(graph, buildOrder) {
+	var buildOrderCopy = [].slice.call(buildOrder);
+
+	// for each project, loop over its dependencies and check if they have not already been added to the build order
+	// if so, add it to the build order
+	for (var proj in graph) {
+			for (var i = 0; i < graph[proj].length; i++) {
+				if (!buildOrderCopy.includes(graph[proj][i])) {
+					buildOrderCopy.push(graph[proj][i]);
+				}
+			}
+		  // once buildOrderCopy contains all over a proj's dependencies, add it if it hasn't already been added
+			if (!buildOrderCopy.includes(proj)) {
+			 	buildOrderCopy.push(proj); 
+			}
+		}
+		
+	return buildOrderCopy;
+}
+
+function findBuildOrder(projects, dependencies) {
+	var graph = {};
+	var buildOrder = [];
+
+	var projectsCopy = [].slice.call(projects);
+	var dependenciesCopy = [].slice.call(dependencies);
+
+	projectsCopy.forEach(function(p) {
+		if (!graph[p]) {
+			graph[p] = [];
+		}
+	});
+
+	dependenciesCopy.forEach(function(d) {
+		if (graph[d[0]].length === 0) {
+			graph[d[1]] = [d[0]];
+		} else {
+			graph[d[1]].push(d[0]);
+		}
+	});
+
+	// get base dependencies -- projects that either do not appear at all in the dependencies or are only depended upon
+	for (var proj in graph) {
+	  if (!Object.keys(graph).includes(proj)) {
+	    buildOrder.push(proj);
+	  }
+		if (graph[proj].length === 0) {
+			buildOrder.push(proj);
+		}
+	}
+	return createBuildOrder(graph, buildOrder);
+}
+
+var projects = ['a', 'b', 'c', 'd', 'e', 'f'];
+var dependencies = [['a', 'd'], ['f', 'b'], ['b', 'd'], ['f', 'a'], ['d', 'c']];
+
+findBuildOrder(projects, dependencies); // [e, f, a, b, d, c]
+
+// 4.8 --
