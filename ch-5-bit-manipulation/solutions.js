@@ -1,5 +1,4 @@
 // 5.1 -- insert number M into N starting at position start and ending at end (from left to right)
-
 function insertBin(n, m, start, end) {
 
 	var nCleared = n;
@@ -16,7 +15,6 @@ function insertBin(n, m, start, end) {
 insertBin(1024, 19, 6, 2); // returns 1100, or '10001001100' in binary
 
 // 5.2 -- convert decimal to binary representation
-
 function roundDecimal(decimal, places) {
   var count = places;
   var value = decimal;
@@ -63,5 +61,43 @@ decimalToBinary(.37);
 decimalToBinary(.65);
 decimalToBinary(.7223);
 
-// 5.3 -- 
+// 5.3 -- you can flip one bit of a number; return the largest string of 1s you can create with this one move
+function findMostOnes(num) {
+  
+  var bin = num.toString(2);
+  var oneCounts = [];
+  var count = 0;
+  
+  for (var i = 0; i < bin.length; i++) {
+    if (bin[i] === "0") {
+    	if (count > 0) {
+    		oneCounts.push(count);
+    		count = 0;
+    	}
+    	continue;
+    } else {
+    	count++;
+    	if (i === (bin.length - 1)) {
+    	  oneCounts.push(count)
+    	}
+    }
+  }
+
+  var largest = 0;
+  
+  for (var k = 0; k < oneCounts.length; k++) {
+    var current = oneCounts[k] + (oneCounts[k+1] ? oneCounts[k+1] : 0); 
+    if (current > largest) {
+      largest = current;
+    }
+  }
+  console.log(oneCounts);
+ 	
+ 	return largest + 1;
+  
+}
+
+findMostOnes(573567); // returns 10
+
+// 5.4 --
 
