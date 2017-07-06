@@ -281,4 +281,7 @@ var dependencies = [['a', 'd'], ['f', 'b'], ['b', 'd'], ['f', 'a'], ['d', 'c']];
 
 findBuildOrder(projects, dependencies); // [e, f, a, b, d, c]
 
-// 4.8 --
+// 4.8 -- find common ancestor of two nodes of a tree
+function findCommonAncestor(nodeOne, nodeTwo) {
+
+}
