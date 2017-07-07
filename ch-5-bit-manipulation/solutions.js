@@ -207,3 +207,35 @@ function pairwiseSwap(num) {
 }
 
 pairwiseSwap(54); // returns 111001
+
+// 5.8 -- drawLine on a given screen
+function drawLine(screen, width, xOne, xTwo, y) {
+
+	var screenArray = [].slice.call(screen);
+	
+	for (var i = xOne; i <= xTwo; i++) {
+		screenArray[i] = ((screenArray[i] + 1) << y);
+	}
+
+	return screenArray;
+
+}
+
+var screen = [
+	0,
+	0,
+	0,
+	0,
+	0,
+	0
+];
+
+var width = 8;
+
+drawLine(screen, width, 1, 3, 3); // returns [0, 8, 8, 8, 0, 0]
+
+
+
+
+
+
