@@ -99,5 +99,67 @@ function findMostOnes(num) {
 
 findMostOnes(573567); // returns 10
 
-// 5.4 --
+// 5.4 -- given an int print the next largest and next smallest integer with same # of 1s in its binary representation
+function sameNumOfOnes(num) {
 
+	var bin = num.toString(2);
+	var numOfOnes = 0;
+	var lessNumOfOnes = 0;
+	var moreNumOfOnes = 0;
+
+  console.log(num, bin);
+
+	for (var i = 0; i < bin.length; i++) {
+		if (bin[i] === "1") {
+			numOfOnes++;
+		}
+	}
+
+	var less = (num - 1);
+	var lessBin;
+
+	while (lessNumOfOnes !== numOfOnes) {
+
+		lessBin = less.toString(2);
+		lessNumOfOnes = 0;
+
+		for (var i = 0; i < bin.length; i++) {
+			if (lessBin[i] === "1") {
+				lessNumOfOnes++;
+			}
+		}
+  
+		if (lessNumOfOnes === numOfOnes) {
+			console.log(less, lessBin);
+			break;
+		}
+
+		less--;
+	}
+
+	var more = (num + 1);
+	var moreBin;
+
+	while (moreNumOfOnes !== numOfOnes) {
+
+		moreBin = more.toString(2);
+		moreNumOfOnes = 0;
+
+		for (var i = 0; i < bin.length; i++) {
+			if (moreBin[i] === "1") {
+				moreNumOfOnes++;
+			}
+		}
+
+    console.log(moreNumOfOnes);
+		if (moreNumOfOnes === numOfOnes) {
+			console.log(more, moreBin);
+			break;
+		}
+
+		more++;
+	}
+
+}
+
+sameNumOfOnes(11352);
