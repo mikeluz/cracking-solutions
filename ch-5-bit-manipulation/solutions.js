@@ -163,3 +163,24 @@ function sameNumOfOnes(num) {
 }
 
 sameNumOfOnes(11352);
+
+// 5.6 -- write function that determines the number of bits that would need to be switch to turn one given int into another given int
+function numOfConversionBits(a, b) {
+
+	var xor = a ^ b;
+
+	var bin = xor.toString(2);
+
+	var countOfOnes = 0;
+
+	for (var i = 0; i < bin.length; i++) {
+		if (bin[i] === "1") {
+			countOfOnes++;
+		}
+	}
+
+	return countOfOnes;
+
+}
+
+numOfConversionBits(29, 15); // returns 2
