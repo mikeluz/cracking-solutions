@@ -184,3 +184,26 @@ function numOfConversionBits(a, b) {
 }
 
 numOfConversionBits(29, 15); // returns 2
+
+// 5.7 -- pairwise swap, swap odd and even bits in as few instructions as possible
+function pairwiseSwap(num) {
+	var bin = num.toString(2).split('');
+	var temp;
+  var i = bin.length - 1;
+
+	while (i > 0) {
+		if (bin[i] !== bin[i-1]) {
+			temp = bin[i];
+			bin[i] = bin[i-1];
+			bin[i-1] = temp;
+		}
+		if ((i -2 ) < 0) {
+		  break;
+		}
+		i = i - 2;
+	}
+
+	return bin.join('');
+}
+
+pairwiseSwap(54); // returns 111001
