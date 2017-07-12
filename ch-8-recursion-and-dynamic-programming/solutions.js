@@ -32,4 +32,32 @@ function stairsMemo(n, memo) {
 
 stairsMemo(10, {}); // returns 274
 
-// 8.2
+// 8.2 -- find path for robot on grid from upper left to bottom right, can only go right and down, must avoid obstacles
+
+function findPath(grid, currentRow, currentColumn) {
+
+	if (currentColumn === (grid[0].length - 1) && currentRow === (grid.length - 1)) {
+		return "FINISHED";
+	}
+	
+	if (currentColumn >= grid[0].length - 1 || currentRow >= grid.length) {
+		return false;
+	}
+
+	if (grid[currentRow][currentColumn] === 1) {
+		return false;
+	}
+
+	return findPath(grid, currentRow + 1, currentColumn) || findPath(grid, currentRow, currentColumn + 1);
+
+}
+
+var grid = [
+	[0, 0, 1],
+	[1, 0, 1],
+	[0, 0, 0]
+];
+
+findPath(grid, 0, 0);
+
+// 8.3 -- 
