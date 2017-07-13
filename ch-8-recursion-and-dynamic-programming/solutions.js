@@ -110,19 +110,19 @@ var set = [1, 2, 3, 4, 5];
 
 var superSets = findPowerSet(set, []);
 
-// 8.5 -- recursive multiplication
+// 8.5 -- recursive multiplication without using "*" sign
 
-function recursiveMultiply(a, b, count) {
+function recursiveMultiply(a, b, prod) {
 
-	if (count >= b) {
-		return a;
+	if (b === 0) {
+		return prod;
 	}
 
-	return recursiveMultiply(a + a, b - 1, count + 1);
+	return recursiveMultiply(a, b - 1, prod + a);
 
 }
 
-recursiveMultiply(5, 4, 0);
+recursiveMultiply(6, 6, 0);
 
 
 
