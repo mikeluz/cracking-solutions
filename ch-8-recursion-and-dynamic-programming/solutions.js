@@ -124,9 +124,57 @@ function recursiveMultiply(a, b, prod) {
 
 recursiveMultiply(6, 6, 0);
 
+// 8.6 -- towers of hanoi using stacks
 
+function towersOfHanoi(towerA, towerB, towerC) {
 
+	// ?????????????
 
+}
 
+towersOfHanoi([5, 4, 3, 2, 1], [], []);
 
+// 8.7 -- compute permutations of a string of unique characters
 
+function permsNoDups(str, perms) {
+	if (!str.length) {
+		return perms;
+	}
+
+	var strCopy = typeof str === "string" ? str.split('') : str;
+
+	var char = strCopy.shift();
+	perms.forEach(perm => {
+		for (var i = 0; i <= perm.length; i++) {
+			perms.push(perm.slice(0, i) + char + perm.slice(i));
+		}
+	});
+	perms.push(char);
+	return permsNoDups(strCopy, perms);
+}
+
+permsNoDups("abcdef", []);
+
+// 8.8 -- compute perms of a string with dupe chars; should be no dupes in perms
+
+function permsDups(str, perms) {
+	if (!str.length) {
+		return perms;
+	}
+
+	var strCopy = typeof str === "string" ? str.split('') : str;
+
+	var char = strCopy.shift();
+	perms.forEach(perm => {
+		for (var i = 0; i <= perm.length; i++) {
+			var newPerm = perm.slice(0, i) + char + perm.slice(i);
+			if (!perms.includes(newPerm)) {
+				perms.push(newPerm);
+			}
+		}
+	});
+	perms.push(char);
+	return permsDups(strCopy, perms);
+}
+
+permsDups("abcbdfd", []);
