@@ -80,4 +80,53 @@ var array = [1, 2, 3, 4, 5];
 
 findMagic(array, 0);
 
-// 8.4 -- 
+// 8.4 -- function to return all subsets of a set
+
+function findPowerSet(set, powerSet) {
+	
+	if (!set.length) {
+		return powerSet;
+	}
+	
+	var setCopy = [].slice.call(set);
+	var powerSetCopy = [].slice.call(powerSet);
+	
+	var newElement = setCopy.pop();
+	var newSubset = [newElement];
+	
+	powerSetCopy.forEach(el => {
+	  var copy = el.slice();
+    copy.push(newElement);
+    powerSetCopy.push(copy);
+	});
+	
+	powerSetCopy.push(newSubset);
+	
+	return findPowerSet(setCopy, powerSetCopy);
+
+}
+
+var set = [1, 2, 3, 4, 5];
+
+var superSets = findPowerSet(set, []);
+
+// 8.5 -- recursive multiplication
+
+function recursiveMultiply(a, b, count) {
+
+	if (count >= b) {
+		return a;
+	}
+
+	return recursiveMultiply(a + a, b - 1, count + 1);
+
+}
+
+recursiveMultiply(5, 4, 0);
+
+
+
+
+
+
+
