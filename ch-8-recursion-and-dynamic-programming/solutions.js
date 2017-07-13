@@ -60,4 +60,24 @@ var grid = [
 
 findPath(grid, 0, 0);
 
-// 8.3 -- 
+// 8.3 -- find magic index of array, i.e., arr[i] = i
+
+function findMagic(arr, i) {
+
+	if (arr[i] === i) {
+		return i;
+	}
+
+	if (i >= arr.length) {
+		return "NO MAGIC INDEX";
+	}
+
+	return findMagic(arr, i + 1);
+
+}
+
+var array = [1, 2, 3, 4, 5];
+
+findMagic(array, 0);
+
+// 8.4 -- 
