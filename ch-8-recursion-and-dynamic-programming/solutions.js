@@ -178,3 +178,36 @@ function permsDups(str, perms) {
 }
 
 permsDups("abcbdfd", []);
+
+// 8.9 -- print all valid pairs of n parenthesis
+
+function validParens(n, arr) {
+	var results = arr ? arr.slice() : ["()"];	
+	if (n === 1) {
+		return arr;
+	}
+	var parens = "";
+	var firstHalf = "";
+	var secondHalf = "";
+	var newParens = [];
+	results.forEach(instance => {
+		for (var i = 0; i < instance.length; i++) {
+			firstHalf = instance.slice(0, i) ? instance.slice(0, i) : "";
+			secondHalf = instance.slice(i) ? instance.slice(i) : "";
+			parens = firstHalf + "()" + secondHalf;
+			if (!results.includes(parens)) {
+				newParens.push(parens);
+			}
+			parens = "";
+		}
+	});
+	return validParens(n - 1, newParens);
+}
+
+validParens(5);
+
+// 8.10 -- 
+
+
+
+
